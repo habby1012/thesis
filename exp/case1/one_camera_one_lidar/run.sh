@@ -10,10 +10,12 @@ BAG_PATH=$1
 OUT_DIR=$2
 TIMEOUT=$3
 
+sudo true
+
 mkdir -p "$OUT_DIR"
 
-timeout "$TIMEOUT" ../../play_rosbag_with_rmw_zenoh.sh "$BAG_PATH" || true
+timeout "$TIMEOUT" /home/newslab/repos/thesis/play_rosbag_with_rmw_zenoh.sh "$BAG_PATH" || true
 
 sleep 10
 
-mv ../../result/zenoh_latency.csv "$OUT_DIR/" 
+mv /home/newslab/repos/thesis/result/zenoh_latency.csv "$OUT_DIR/" 
