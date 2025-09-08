@@ -25,7 +25,7 @@ def load_latency(p):
 
 def load_policy(p):
     pol = pd.read_csv(p, header=None,
-                      names=['topic','module','class','frequency','size','bandwidth'],
+                      names=['topic','module','class','frequency','size','bandwidth','extra'],
                       dtype={'topic':'string','class':'string'}, engine='c')
     pol['topic_norm'] = pol['topic'].map(_norm_topic)
     pol = pol.drop_duplicates(subset=['topic_norm'])
