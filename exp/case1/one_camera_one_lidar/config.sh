@@ -1,5 +1,5 @@
 # Replace metadata table. This is to ensure all message flows go into the same zenoh priority queue (zenoh priority 5)
-cp /home/newslab/repos/thesis/src/subscriber/subscriber/config/backup/INTER_carla_one_camera_DEFAULT.csv /home/newslab/repos/thesis/src/subscriber/subscriber/config/INTER_carla_one_camera.csv
+cp /home/newslab/repos/thesis/src/subscriber/subscriber/config/backup/metadata_table_DEFAULT.csv /home/newslab/repos/thesis/src/subscriber/subscriber/config/metadata_table.csv
 
 # Config tc qdisc. This is to ensure all message flows go into the same hardware queue (queue 0) (zenoh priority -> socket priority -> hardware queue)
 sudo tc qdisc del dev enp4s0 root

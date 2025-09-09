@@ -7,7 +7,7 @@ class CsvTopicSubscriber(Node):
     def __init__(self):
         super().__init__('csv_topic_subscriber')
         self.subs = []
-        csv_path = '/home/newslab/repos/thesis/src/subscriber/subscriber/config/INTER_carla_one_camera.csv'
+        csv_path = '/home/newslab/repos/thesis/src/subscriber/subscriber/config/metadata_table.csv'
         self.target_topics = self.read_target_topics(csv_path)
         # self.get_logger().info(f'Target topics: {self.target_topics}')
         self.timer = self.create_timer(1.0, self.scan_and_subscribe)
