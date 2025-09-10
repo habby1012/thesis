@@ -407,4 +407,4 @@ vehicle/status/actuation_status,Control/Planning,Soft Real-Time,20,0.05K,1KB/s,
 vehicle/status/control_mode,Control/Planning,Soft Real-Time,20,16,320B/s,
 vehicle/status/gear_status,Control/Planning,Soft Real-Time,20,16,320B/s,
 vehicle/status/steering_status,Control/Planning,Soft Real-Time,20,16,320B/s,
-vehicle/status/velocity_status,Control/Planning,Soft Real-Time,20,40,800B/s,v
+vehicle/status/velocity_status,Control/Planning,Soft Real-Time,20,40,800B/s,
