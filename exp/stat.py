@@ -93,7 +93,19 @@ def main():
             'loss_rate': round(loss_rate, 6) if not np.isnan(loss_rate) else np.nan,
         })
 
-    out = pd.DataFrame(rows).sort_values('topic', kind='mergesort')
+    priority_order = {
+        'Critical': 0,
+        'Soft Real-Time': 1,
+        'Perception': 2,
+        'Best-Effort': 3,
+        'Unknown': 4,
+    }
+
+    out = pd.DataFrame(rows)
+    out['class_order'] = out['class'].map(priority_order).fillna(99).astype(int)
+
+    out = out.sort_values(['class_order', 'topic'], kind='mergesort')
+    out = out.drop(columns=['class_order'])
     out.to_csv(a.out_path, index=False)
 
 if __name__ == '__main__':
