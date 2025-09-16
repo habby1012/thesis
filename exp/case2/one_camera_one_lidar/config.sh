@@ -9,6 +9,9 @@ tc qdisc
 # Set Vlan. This is to ensure host's hardware queues map to one switch's queue.
 sudo ip link set dev vlan2 type vlan egress 0:2 1:2 2:2 3:2 4:2 5:2 6:2 7:2
 
+# Sleep some time, since change qdisc may affect ptp synchronization
+sleep 30
+
 # test ptp
 sudo systemctl status ptp4l
 sudo systemctl status phc2sys
