@@ -41,14 +41,22 @@ def loss_rate_from_seq(g: pd.DataFrame) -> float:
     miss = max(expected - received, 0)
     return float(miss) / float(expected)
 
+def _cls_norm(s: str) -> str:
+    return s.strip().lower().replace(' ', '').replace('-', '')
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--in', dest='in_path', required=True)
     ap.add_argument('--policy', dest='policy_path', required=True)
     ap.add_argument('--out', dest='out_path', required=True)
-    ap.add_argument('--deadline-ns', dest='deadline_ns', type=int, default=1_000_000)
+    ap.add_argument('--deadline-ns', dest='deadline_ns', type=int, default=None)
+    ap.add_argument('--critical-deadline-ns', dest='critical_deadline_ns', type=int, default=1_000_000)
+    ap.add_argument('--softrt-deadline-ns', dest='softrt_deadline_ns', type=int, default=2_000_000)
     ap.add_argument('--warmup-n', dest='warmup_n', type=int, default=0)
     a = ap.parse_args()
+
+    crit_deadline_ns = a.deadline_ns if a.deadline_ns is not None else a.critical_deadline_ns
+    soft_deadline_ns = a.softrt_deadline_ns
 
     lat = load_latency(a.in_path)
     pol = load_policy(a.policy_path)
@@ -59,13 +67,12 @@ def main():
     for topic, g in m.groupby('topic', sort=False):
         g = g.sort_values('_row', kind='mergesort')
         if a.warmup_n > 0:
-            if len(g) > a.warmup_n:
-                g = g.iloc[a.warmup_n:].copy()
-            else:
-                continue
+            if len(g) > a.warmup_n: g = g.iloc[a.warmup_n:].copy()
+            else: continue
         if g.empty: continue
 
         cls = str(g['class'].iloc[0]) if 'class' in g.columns else 'Unknown'
+        cls_key = _cls_norm(cls)
         L_ns = g['latency_ns'].to_numpy(np.int64)
         L_ms = L_ns.astype(np.float64) / 1e6
 
@@ -74,22 +81,24 @@ def main():
         avg_ms = float(np.mean(L_ms))
         p95_ms = float(np.percentile(L_ms, 95))
         p99_ms = float(np.percentile(L_ms, 99))
-
         jitter_std_ms = float(np.std(L_ms, ddof=0))
         ipdv_std_ms = float(np.std(np.diff(L_ms), ddof=0)) if L_ms.size > 1 else np.nan
 
-        miss = float(np.mean(L_ns > a.deadline_ns)) if cls.lower()=='critical' else np.nan
+        miss_crit = float(np.mean(L_ns > crit_deadline_ns)) if cls_key == 'critical' else np.nan
+        is_soft = cls_key in ('softrealtime', 'softrt', 'soft')
+        miss_soft = float(np.mean(L_ns > soft_deadline_ns)) if is_soft else np.nan
 
         rows.append({
             'topic': topic,
             'class': cls,
             'count': int(L_ms.size),
-            'avg_latency_ms': round(avg_ms, 3),
-            'p95_latency_ms': round(p95_ms, 3),
-            'p99_latency_ms': round(p99_ms, 3),
+            'avg_lat_ms': round(avg_ms, 3),
+            'p95_lat_ms': round(p95_ms, 3),
+            'p99_lat_ms': round(p99_ms, 3),
             'jitter_std_ms': round(jitter_std_ms, 3),
             'ipdv_std_ms': round(ipdv_std_ms, 3) if not np.isnan(ipdv_std_ms) else np.nan,
-            'deadline_miss_rate_1ms': round(miss, 6) if not np.isnan(miss) else np.nan,
+            'deadline_missrate_1ms': round(miss_crit, 6) if not np.isnan(miss_crit) else np.nan,
+            'deadline_missrate_2ms': round(miss_soft, 6) if not np.isnan(miss_soft) else np.nan,
             'loss_rate': round(loss_rate, 6) if not np.isnan(loss_rate) else np.nan,
         })
 
@@ -103,7 +112,6 @@ def main():
 
     out = pd.DataFrame(rows)
     out['class_order'] = out['class'].map(priority_order).fillna(99).astype(int)
-
     out = out.sort_values(['class_order', 'topic'], kind='mergesort')
     out = out.drop(columns=['class_order'])
     out.to_csv(a.out_path, index=False)
