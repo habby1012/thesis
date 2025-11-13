@@ -51,7 +51,7 @@ def main():
     ap.add_argument('--out', dest='out_path', required=True)
     ap.add_argument('--deadline-ns', dest='deadline_ns', type=int, default=None)
     ap.add_argument('--critical-deadline-ns', dest='critical_deadline_ns', type=int, default=1_000_000)
-    ap.add_argument('--softrt-deadline-ns', dest='softrt_deadline_ns', type=int, default=2_000_000)
+    ap.add_argument('--softrt-deadline-ns', dest='softrt_deadline_ns', type=int, default=50_000_000)
     ap.add_argument('--warmup-n', dest='warmup_n', type=int, default=0)
     a = ap.parse_args()
 
@@ -98,7 +98,7 @@ def main():
             'jitter_std_ms': round(jitter_std_ms, 3),
             'ipdv_std_ms': round(ipdv_std_ms, 3) if not np.isnan(ipdv_std_ms) else np.nan,
             'deadline_missrate_1ms': round(miss_crit, 6) if not np.isnan(miss_crit) else np.nan,
-            'deadline_missrate_2ms': round(miss_soft, 6) if not np.isnan(miss_soft) else np.nan,
+            'deadline_missrate_50ms': round(miss_soft, 6) if not np.isnan(miss_soft) else np.nan,
             'loss_rate': round(loss_rate, 6) if not np.isnan(loss_rate) else np.nan,
         })
 

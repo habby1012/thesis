@@ -1,4 +1,4 @@
-topic,class,count,avg_lat_ms,p95_lat_ms,p99_lat_ms,jitter_std_ms,ipdv_std_ms,deadline_missrate_1ms,deadline_missrate_2ms,loss_rate
+topic,class,count,avg_lat_ms,p95_lat_ms,p99_lat_ms,jitter_std_ms,ipdv_std_ms,deadline_missrate_1ms,deadline_missrate_50ms,loss_rate
 /control/command/actuation_cmd,Critical,11913,0.283,0.997,1.843,0.35,0.518,0.049358,,0.0
 /control/command/control_cmd,Critical,11921,0.279,0.962,1.718,0.338,0.497,0.046053,,0.0
 /control/command/emergency_cmd,Critical,11883,0.29,0.973,1.812,0.347,0.51,0.047379,,0.0
@@ -8,27 +8,27 @@ topic,class,count,avg_lat_ms,p95_lat_ms,p99_lat_ms,jitter_std_ms,ipdv_std_ms,dea
 /system/emergency/gear_cmd,Critical,5953,0.146,0.174,1.294,0.21,0.296,0.016966,,0.0
 /system/emergency_holding,Critical,5934,0.183,0.73,1.904,0.318,0.447,0.037917,,0.0
 /system/fail_safe/mrm_state,Critical,5942,0.171,0.448,1.691,0.284,0.399,0.029451,,0.0
-/control/command/hazard_lights_cmd,Soft Real-Time,5929,0.363,0.999,1.487,0.308,0.415,,0.002361,0.0
-/control/command/turn_indicators_cmd,Soft Real-Time,5957,0.32,0.865,1.321,0.258,0.35,,0.000671,0.0
-/localization/kinematic_state,Soft Real-Time,11888,1.083,3.264,4.271,1.199,2.108,,0.266655,0.0
-/localization/pose_estimator/pose,Soft Real-Time,5939,1.555,3.307,3.883,1.106,0.797,,0.347365,0.0
-/localization/pose_estimator/pose_with_covariance,Soft Real-Time,5939,1.632,3.357,4.014,1.159,0.821,,0.39872,0.0
-/localization/pose_twist_fusion_filter/pose,Soft Real-Time,11866,0.781,2.74,3.791,0.904,1.53,,0.100034,0.0
-/localization/pose_twist_fusion_filter/twist,Soft Real-Time,11912,0.955,2.971,4.021,1.112,1.911,,0.196525,0.0
-/localization/pose_twist_fusion_filter/twist_with_covariance,Soft Real-Time,11916,0.931,2.919,3.8,1.073,1.857,,0.196459,0.0
-/localization/pose_with_covariance,Soft Real-Time,11886,0.841,2.832,3.677,0.948,1.628,,0.129144,0.0
-/localization/twist_estimator/twist_with_covariance,Soft Real-Time,11900,1.825,4.325,4.536,1.578,2.899,,0.455966,0.0
-/sensing/gnss/pose_with_covariance,Soft Real-Time,1174,0.21,0.267,0.536,0.152,0.212,,0.002555,0.0
-/sensing/imu/imu_data,Soft Real-Time,11922,0.224,0.276,1.36,0.239,0.334,,0.006459,0.0
-/sensing/vehicle_velocity_converter/twist_with_covariance,Soft Real-Time,11884,1.595,3.809,4.495,1.343,2.533,,0.464995,0.0
-/system/emergency/hazard_lights_cmd,Soft Real-Time,5953,0.221,0.554,2.173,0.356,0.501,,0.011591,0.0
-/system/emergency/hazard_status,Soft Real-Time,5953,0.346,0.97,2.352,0.382,0.534,,0.018478,0.0
-/system/mrm/emergency_stop/status,Soft Real-Time,11909,0.225,0.301,1.643,0.258,0.363,,0.006298,0.0
-/vehicle/status/actuation_status,Soft Real-Time,11936,0.185,0.258,0.519,0.167,0.238,,0.002262,0.0
-/vehicle/status/control_mode,Soft Real-Time,11936,0.167,0.24,1.147,0.194,0.274,,0.003267,0.0
-/vehicle/status/gear_status,Soft Real-Time,11938,0.155,0.226,1.062,0.189,0.263,,0.002848,0.0
-/vehicle/status/steering_status,Soft Real-Time,11936,0.185,0.253,1.267,0.222,0.315,,0.004775,0.0
-/vehicle/status/velocity_status,Soft Real-Time,11937,0.174,0.251,0.437,0.144,0.203,,0.001424,0.0
+/control/command/hazard_lights_cmd,Soft Real-Time,5929,0.363,0.999,1.487,0.308,0.415,,0.0,0.0
+/control/command/turn_indicators_cmd,Soft Real-Time,5957,0.32,0.865,1.321,0.258,0.35,,0.0,0.0
+/localization/kinematic_state,Soft Real-Time,11888,1.083,3.264,4.271,1.199,2.108,,0.0,0.0
+/localization/pose_estimator/pose,Soft Real-Time,5939,1.555,3.307,3.883,1.106,0.797,,0.0,0.0
+/localization/pose_estimator/pose_with_covariance,Soft Real-Time,5939,1.632,3.357,4.014,1.159,0.821,,0.0,0.0
+/localization/pose_twist_fusion_filter/pose,Soft Real-Time,11866,0.781,2.74,3.791,0.904,1.53,,0.0,0.0
+/localization/pose_twist_fusion_filter/twist,Soft Real-Time,11912,0.955,2.971,4.021,1.112,1.911,,0.0,0.0
+/localization/pose_twist_fusion_filter/twist_with_covariance,Soft Real-Time,11916,0.931,2.919,3.8,1.073,1.857,,0.0,0.0
+/localization/pose_with_covariance,Soft Real-Time,11886,0.841,2.832,3.677,0.948,1.628,,0.0,0.0
+/localization/twist_estimator/twist_with_covariance,Soft Real-Time,11900,1.825,4.325,4.536,1.578,2.899,,0.0,0.0
+/sensing/gnss/pose_with_covariance,Soft Real-Time,1174,0.21,0.267,0.536,0.152,0.212,,0.0,0.0
+/sensing/imu/imu_data,Soft Real-Time,11922,0.224,0.276,1.36,0.239,0.334,,0.0,0.0
+/sensing/vehicle_velocity_converter/twist_with_covariance,Soft Real-Time,11884,1.595,3.809,4.495,1.343,2.533,,0.0,0.0
+/system/emergency/hazard_lights_cmd,Soft Real-Time,5953,0.221,0.554,2.173,0.356,0.501,,0.0,0.0
+/system/emergency/hazard_status,Soft Real-Time,5953,0.346,0.97,2.352,0.382,0.534,,0.0,0.0
+/system/mrm/emergency_stop/status,Soft Real-Time,11909,0.225,0.301,1.643,0.258,0.363,,0.0,0.0
+/vehicle/status/actuation_status,Soft Real-Time,11936,0.185,0.258,0.519,0.167,0.238,,0.0,0.0
+/vehicle/status/control_mode,Soft Real-Time,11936,0.167,0.24,1.147,0.194,0.274,,0.0,0.0
+/vehicle/status/gear_status,Soft Real-Time,11938,0.155,0.226,1.062,0.189,0.263,,0.0,0.0
+/vehicle/status/steering_status,Soft Real-Time,11936,0.185,0.253,1.267,0.222,0.315,,0.0,0.0
+/vehicle/status/velocity_status,Soft Real-Time,11937,0.174,0.251,0.437,0.144,0.203,,0.0,0.0
 /perception/object_recognition/detection/centerpoint/objects,Perception,5957,3.001,5.53,6.603,2.08,1.044,,,0.0
 /perception/object_recognition/detection/detection_by_tracker/objects,Perception,5933,3.223,5.956,6.94,2.245,1.221,,,0.0
 /perception/object_recognition/detection/objects,Perception,5968,2.495,5.039,6.157,1.838,1.186,,,0.0

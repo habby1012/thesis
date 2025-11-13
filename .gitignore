@@ -4,3 +4,7 @@ log/
 
 rosbag/
 result/
+
+# ---- experiment results ----
+**/stat.csv
+**/zenoh_latency.csv
